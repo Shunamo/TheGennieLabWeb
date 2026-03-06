@@ -1,0 +1,15 @@
+<svg width="800" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blueRibbonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#aaccff;stop-opacity:0.6" />
+      <stop offset="50%" style="stop-color:#6699ff;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#aaccff;stop-opacity:0.6" />
+    </linearGradient>
+  </defs>
+
+  <path d="M0,100 C100,0 200,200 300,100 C400,0 500,200 600,100 C700,0 800,200 900,100" 
+        stroke="url(#blueRibbonGradient)" stroke-width="30" fill="none" stroke-linecap="round"/>
+
+  <path d="M0,100 C100,200 200,0 300,100 C400,200 500,0 600,100 C700,200 800,0 900,100" 
+        stroke="url(#blueRibbonGradient)" stroke-width="30" fill="none" stroke-linecap="round"/>
+</svg>
