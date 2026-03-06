@@ -12,6 +12,7 @@ const navigationItems = [
   { label: "Research", href: "/research" },
   { label: "Publication", href: "/publication" },
   { label: "Notice", href: "/notice" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navigation() {
