@@ -156,3 +156,18 @@ export function getNoticesByCategory(): { category: string; notices: Notice[] }[
 export function getNoticeById(id: string): Notice | undefined {
   return NOTICES.find((n) => n.id === id);
 }
+
+/** 간단한 뉴스/게시판 형식 (날짜 + 제목 + 링크) */
+export interface NewsItem {
+  date: string;
+  title: string;
+  link?: string;
+}
+
+export const NEWS: NewsItem[] = [
+  { date: "2025.03.15", title: "GENNIE Lab Seminar Series 2025", link: "/notice/1" },
+  { date: "2025.03.10", title: "Lab Meeting Schedule Update", link: "/notice/2" },
+  { date: "2025.03.05", title: "Paper Submission Deadline (ISMB 2025)", link: "/notice/3" },
+  { date: "2025.02.28", title: "New Dataset: UK Biobank imaging genetics", link: "/notice/4" },
+  { date: "2025.03.01", title: "Postdoc & PhD Student Recruitment 2025", link: "/notice/9" },
+];

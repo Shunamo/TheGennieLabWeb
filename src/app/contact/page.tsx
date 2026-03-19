@@ -5,8 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import Navigation from "@/components/common/Navigation";
 import { ExternalLink } from "lucide-react";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function ContactPage() {
+  const { t } = useTranslation();
   const mainRef = useRef<HTMLElement>(null);
   const [formState, setFormState] = useState({
     name: "",
@@ -121,14 +123,8 @@ export default function ContactPage() {
                     <p className="text-sm font-medium text-slate-500 mb-1">
                       Address
                     </p>
-                    <address className="not-italic leading-relaxed">
-                      Department of Digital Health, SAIHST,
-                      <br />
-                      Samsung Medical Center, Sungkyunkwan University
-                      <br />
-                      Irwon-ro 115, A-8th floor, Gangnam-gu
-                      <br />
-                      Seoul, South Korea 06355
+                    <address className="not-italic leading-relaxed whitespace-pre-line">
+                      {t("contact.address1")}
                     </address>
                   </div>
                   <div>
@@ -222,7 +218,8 @@ export default function ContactPage() {
                       type="submit"
                       className="py-3 px-8 rounded-lg font-semibold text-white
                         bg-slate-800 hover:bg-slate-900
-                        transition-all duration-300"
+                        hover:scale-105 active:scale-95
+                        transition-all duration-200 ease-out"
                     >
                       Contact us
                     </button>
@@ -245,18 +242,15 @@ export default function ContactPage() {
                   {/* 찾아오는 방법 */}
                   <div>
                     <h2 className="text-xl font-bold text-slate-800 mb-4">
-                      Location & How to get here
+                      Location & Directions
                     </h2>
                     <div className="space-y-4 text-slate-600 text-sm">
                       <div>
                         <h3 className="font-semibold text-slate-700 mb-2">
                           Address
                         </h3>
-                        <address className="not-italic leading-relaxed">
-                          Department of Digital Health, SAIHST, Samsung Medical
-                          Center, Sungkyunkwan University
-                          <br />
-                          81 Irwon-ro, Gangnam-gu, Seoul 06351, South Korea
+                        <address className="not-italic leading-relaxed whitespace-pre-line">
+                          {t("contact.address2")}
                         </address>
                       </div>
                       <div>
@@ -264,17 +258,9 @@ export default function ContactPage() {
                           Transportation
                         </h3>
                         <ul className="space-y-1">
-                          <li>
-                            • Subway: Irwon Station (Line 3), Exit 1 — about 5
-                            min walk
-                          </li>
-                          <li>
-                            • Free shuttle: Irwon Station Exit 1 ↔ Samsung
-                            Medical Center
-                          </li>
-                          <li>
-                            • Bus: Various lines to Samsung Medical Center stop
-                          </li>
+                          <li>{t("contact.transport.1")}</li>
+                          <li>{t("contact.transport.2")}</li>
+                          <li>{t("contact.transport.3")}</li>
                         </ul>
                       </div>
                       <a
@@ -284,7 +270,7 @@ export default function ContactPage() {
                         className="inline-flex items-center gap-2 text-sky-600 hover:underline font-medium"
                       >
                         <ExternalLink className="w-4 h-4" />
-                        Open in Google Maps
+                        {t("contact.openMaps")}
                       </a>
                     </div>
                   </div>
@@ -324,12 +310,10 @@ export default function ContactPage() {
                     We are looking for..
                   </h2>
                   <p className="mt-3 text-slate-600 leading-relaxed max-w-3xl">
-                    We are hiring motivated students who are excited about rigorous academic
-                    research at the intersection of digital health, genomics, data science,
-                    and causal inference.
+                    {t("contact.lookingForIntro")}
                   </p>
                   <p className="mt-3 text-sm text-slate-500">
-                    Full recruitment details can also be found{" "}
+                    {t("contact.recruitmentLink")}
                     <Link
                       href="/notice"
                       className="text-sky-600 font-semibold hover:underline inline-flex items-center gap-1"
@@ -337,7 +321,7 @@ export default function ContactPage() {
                       HERE
                       <ExternalLink className="w-4 h-4" />
                     </Link>
-                    .
+                    {t("contact.recruitmentLinkEnd")}
                   </p>
                 </div>
 
@@ -348,8 +332,7 @@ export default function ContactPage() {
                       Academic Background
                     </h3>
                     <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                      Applicants must have either a bachelor&apos;s or master&apos;s degree
-                      (expected by 08/2025 or 02/2026) in relevant fields.
+                      {t("contact.academicIntro")}
                     </p>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -358,9 +341,7 @@ export default function ContactPage() {
                           Preferred backgrounds
                         </p>
                         <p className="text-sm text-slate-600 leading-relaxed">
-                          Life science, genetics, medicine, cognitive science, or
-                          quantitative science backgrounds such as computer science,
-                          statistics, physics, or other engineering.
+                          {t("contact.preferredBg")}
                         </p>
                       </div>
 
@@ -369,11 +350,7 @@ export default function ContactPage() {
                           Other Arts & Sciences
                         </p>
                         <p className="text-sm text-slate-600 leading-relaxed">
-                          Applicants from other arts and sciences are also welcome if they
-                          are equipped with core data science skills, including programming
-                          (Python or R) and statistics. For those without prior quantitative
-                          analysis experience, we expect strong non-quantitative domain
-                          expertise such as psychology, education, or related fields.
+                          {t("contact.otherArts")}
                         </p>
                       </div>
                     </div>
@@ -387,8 +364,7 @@ export default function ContactPage() {
                           Great Personality
                         </h3>
                         <p className="text-sm text-slate-600 leading-relaxed">
-                          Self-motivated, curious, proactive, flexible, mature, kind,
-                          generous, collaborative, and independent.
+                          {t("contact.greatPersonality")}
                         </p>
                       </div>
 
@@ -397,8 +373,7 @@ export default function ContactPage() {
                           Academic Scholarship
                         </h3>
                         <p className="text-sm text-slate-600 leading-relaxed">
-                          Observational, reasoning, critical, experimental, creative, and
-                          communicative across disciplines.
+                          {t("contact.academicScholarship")}
                         </p>
                       </div>
 
@@ -407,7 +382,7 @@ export default function ContactPage() {
                           Commitment
                         </h3>
                         <p className="text-sm text-slate-600 leading-relaxed">
-                          Dedication to rigorous academic research and a strong work ethic.
+                          {t("contact.commitment")}
                         </p>
                       </div>
                     </div>
@@ -420,8 +395,7 @@ export default function ContactPage() {
                     </h3>
                     <div className="rounded-xl border border-white/60 bg-white/20 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.5)] p-5">
                       <p className="text-sm text-slate-600 leading-relaxed">
-                        Applicants should demonstrate clear interest in at least one of the
-                        research areas listed below.
+                        {t("contact.researchInterest")}
                       </p>
                     </div>
                   </section>
@@ -432,33 +406,30 @@ export default function ContactPage() {
                       Expected Skills and Experience
                     </h3>
                     <p className="text-sm text-slate-600 leading-relaxed mb-5">
-                      Students who meet the general requirements and satisfy at least one of
-                      the following categories are encouraged to apply. Proficiency in
-                      programming (R/Python) and a strong foundation in statistics are
-                      essential.
+                      {t("contact.expectedSkillsIntro")}
                     </p>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {[
                         {
                           title: "Category 1 · Coders for Life Sciences",
-                          desc: "Proficient in ML/DL with R or Python and interested in applying advanced DL architectures such as Transformers or MAMBA to biomedical or genomics datasets.",
+                          descKey: "contact.cat1Desc",
                         },
                         {
                           title: "Category 2 · Causal Inference Specialists",
-                          desc: "Interested in causal discovery and inference for treatments, side effects, or disease interactions. Familiarity with propensity score matching, instrumental variables, or DAG-based approaches is needed.",
+                          descKey: "contact.cat2Desc",
                         },
                         {
                           title: "Category 3 · DNA Multimodal Data Integrators",
-                          desc: "Experienced in omics data and motivated to integrate it with smartwatch, imaging, or EHR data. Understanding of GWAS, PRS, and Mendelian randomization is required.",
+                          descKey: "contact.cat3Desc",
                         },
                         {
                           title: "Category 4 · Time-series Data Analysts",
-                          desc: "Experienced in or motivated to analyze time-series and temporal data for smart health applications.",
+                          descKey: "contact.cat4Desc",
                         },
                         {
                           title: "Category 5 · Sociogenomists",
-                          desc: "Interested in the influence of Social Determinants of Health (SDH) on human genetics and health outcomes.",
+                          descKey: "contact.cat5Desc",
                         },
                       ].map((cat, i) => (
                         <div
@@ -469,7 +440,7 @@ export default function ContactPage() {
                             {cat.title}
                           </p>
                           <p className="text-sm text-slate-600 leading-relaxed">
-                            {cat.desc}
+                            {t(cat.descKey)}
                           </p>
                         </div>
                       ))}
@@ -482,10 +453,8 @@ export default function ContactPage() {
                       Language Proficiency
                     </h3>
                     <div className="rounded-xl border border-white/60 bg-white/20 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.5)] p-5">
-                      <p className="text-sm text-slate-600 leading-relaxed">
-                        Proficiency in English for academic communication, both written and
-                        verbal, is required. Examples include TOEIC 800+, TOEFL iBT 90+, or
-                        equivalent ability in reading and writing academic papers in English.
+                      <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-line">
+                        {t("contact.languageProficiency")}
                       </p>
                     </div>
                   </section>
@@ -499,19 +468,18 @@ export default function ContactPage() {
                         First come, first served
                       </p>
                       <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                        Spots are limited and applications will be accepted on a rolling
-                        basis.
+                        {t("contact.spotsLimited")}
                       </p>
 
                       <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                        Please apply by emailing{" "}
+                        {t("contact.applyByEmail")}
                         <a
                           href="mailto:yoonjungjoo@skku.edu"
                           className="text-sky-600 font-semibold hover:underline"
                         >
                           yoonjungjoo@skku.edu
                         </a>
-                        .
+                        {t("contact.applyByEmailEnd")}
                       </p>
 
                       <div>
@@ -520,17 +488,17 @@ export default function ContactPage() {
                         </p>
                         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-700">
                           {[
-                            "CV / Resume",
-                            "Personal statement (any format)",
-                            "Official English proficiency test score",
-                            "Official undergrad / grad transcripts",
+                            { key: null, label: "CV / Resume" },
+                            { key: "contact.doc2", label: null },
+                            { key: "contact.doc3", label: null },
+                            { key: "contact.doc4", label: null },
                           ].map((item, i) => (
                             <li
                               key={i}
                               className="flex items-center gap-2 rounded-lg bg-white/30 backdrop-blur-sm border border-white/60 shadow-[0_2px_8px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.4)] px-3 py-3"
                             >
                               <span className="w-2 h-2 rounded-full bg-sky-500 shrink-0" />
-                              {item}
+                              {item.label ?? t(item.key!)}
                             </li>
                           ))}
                         </ul>

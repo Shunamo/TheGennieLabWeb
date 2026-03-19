@@ -7,9 +7,11 @@ import { useEffect, useRef } from "react";
 import Navigation from "@/components/common/Navigation";
 import { ArrowLeft, Pin } from "lucide-react";
 import { getNoticeById } from "@/data/notices";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function NoticeDetailPage() {
   const params = useParams();
+  const { t } = useTranslation();
   const mainRef = useRef<HTMLElement>(null);
   const id = params.id as string;
   const notice = getNoticeById(id);
@@ -30,9 +32,9 @@ export default function NoticeDetailPage() {
       <main className="min-h-screen bg-white">
         <Navigation />
         <div className="pt-36 px-6 max-w-2xl mx-auto">
-          <p className="text-slate-600">Notice not found.</p>
-          <Link href="/notice" className="mt-4 inline-flex items-center gap-2 text-sky-600 hover:underline">
-            <ArrowLeft className="w-4 h-4" /> Back to Notice
+          <p className="text-slate-600">{t("notice.notFound")}</p>
+          <Link href="/notice" className="mt-4 inline-flex items-center gap-2 text-sky-600 hover:underline hover:scale-105 active:scale-95 transition-transform duration-200">
+            <ArrowLeft className="w-4 h-4" /> {t("notice.backToNotice")}
           </Link>
         </div>
       </main>
@@ -85,10 +87,10 @@ export default function NoticeDetailPage() {
           {/* Back link */}
           <Link
             href="/notice"
-            className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-sky-600 transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-sky-600 hover:scale-105 active:scale-95 transition-all duration-200 mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Notice
+            {t("notice.backToNotice")}
           </Link>
 
           {/* Glassy 메인 카드 */}
@@ -112,10 +114,10 @@ export default function NoticeDetailPage() {
                 </span>
               <p className="text-sm font-medium text-slate-500 mb-2">{notice.date}</p>
               <h1 className="text-2xl md:text-3xl font-bold text-slate-800 mb-6">
-                {notice.title}
+                {t(`notice.${notice.id}.title`)}
               </h1>
               <div className="prose prose-slate max-w-none">
-                {notice.content.split("\n\n").map((paragraph, i) => (
+                {t(`notice.${notice.id}.content`).split("\n\n").map((paragraph, i) => (
                   <p key={i} className="text-slate-600 leading-relaxed mb-4">
                     {paragraph.split("**").map((part, j) =>
                       j % 2 === 1 ? (

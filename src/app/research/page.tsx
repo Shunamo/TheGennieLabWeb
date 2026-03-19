@@ -5,17 +5,15 @@ import { motion } from "framer-motion";
 import Navigation from "@/components/common/Navigation";
 import { Brain, Dna, Microscope, HeartPulse, FileText, X } from "lucide-react";
 import Image from "next/image";
-
-const RESEARCH_INTRO = "We decode human complexity through the integration of Genetics, Neuroimaging, and AI.";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 const RESEARCH_AREAS = [
   {
     id: "precision-genomic",
+    idx: 0,
     title: "Precision Genomic Medicine",
-    icon: Dna,
     subtitle: "Genome-powered Precision Medicine",
-    desc: "Integrating large-scale genomic and clinical data (including EHR-linked biobanks) to understand complex disease biology and improve prediction.",
-    longDesc: "Applying AI and machine learning algorithms to identify genetic risk factors for various diseases. We focus on developing more inclusive and diverse training models to mitigate predictive biases and expand AI/ML in clinical practice.",
+    icon: Dna,
     papers: [
       "Saunders GR, et al. Nature. 2022",
       "Mahajan A, et al. Nature Genetics. 2022",
@@ -26,37 +24,35 @@ const RESEARCH_AREAS = [
   },
   {
     id: "psychiatric-genetics",
+    idx: 1,
     title: "Psychiatric Genetics",
-    icon: Brain,
     subtitle: "Genetics of cognition & mental health",
-    desc: "Studying the genetic basis of cognitive, psychological, and psychiatric outcomes via multi-modal biomedical data integration.",
-    longDesc: "Focusing on various outcomes such as cognitive ability, suicidal behaviors, and ADHD. Our goal is to develop better diagnostic tools and personalized treatments for psychiatric diseases.",
+    icon: Brain,
     papers: ["Joo YY, et al. JAMA Network Open. 2022", "Park J, et al. MedRxiv. 2022"],
     gradient: "from-indigo-500/30 via-indigo-500/10 to-transparent",
   },
   {
     id: "imaging-genetics",
+    idx: 2,
     title: "Imaging Genetics",
-    icon: Microscope,
     subtitle: "Neuroimaging × Genomics",
-    desc: "Linking brain imaging phenotypes with genetic variation to build interpretable and predictive models of mental health outcomes.",
-    longDesc: "Analyzing multi-modal data (MRI, Genotype, K-SADS) to classify individuals' state of mental health. We aim to unlock the genetic secrets of brain structure and function.",
+    icon: Microscope,
     papers: ["Wang HH, et al. MedRxiv. 2021", "Kim K, et al. Human Brain Mapping. 2022"],
     gradient: "from-violet-500/30 via-violet-500/10 to-transparent",
   },
   {
     id: "salutogenesis",
+    idx: 3,
     title: "Salutogenesis",
-    icon: HeartPulse,
     subtitle: "Health restoration processes",
-    desc: "Developing AI/ML tools that combine genetic, clinical, and environmental signals to support individualized health trajectories.",
-    longDesc: "A multi-scale computational approach to explain how physiological networks dynamically change over time during the process of human health restoration.",
+    icon: HeartPulse,
     papers: ["NIH Bridge2AI Program (OT2), USA"],
     gradient: "from-teal-500/30 via-teal-500/10 to-transparent",
   },
 ];
 
 export default function ResearchPage() {
+  const { t } = useTranslation();
   const [selectedArea, setSelectedArea] = useState<typeof RESEARCH_AREAS[0] | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -110,7 +106,7 @@ export default function ResearchPage() {
             Research Mission
           </h1>
           <p className="text-lg md:text-xl  text-slate-600 max-w-2xl leading-relaxed mt-6 ml-16 md:ml-16">
-            {RESEARCH_INTRO}
+            We decode human complexity through the integration of Genetics, Neuroimaging, and AI.
           </p>
         </div>
       </section>
@@ -194,7 +190,7 @@ export default function ResearchPage() {
                     </div>
                     <button
                       onClick={(e) => { e.stopPropagation(); closeOverlay(); }}
-                      className="absolute top-4 right-4 p-2 rounded-full bg-white/20 hover:bg-white/40 text-white transition-colors"
+                      className="absolute top-4 right-4 p-2 rounded-full bg-white/20 hover:bg-white/40 hover:scale-110 active:scale-95 text-white transition-all duration-200"
                       aria-label="Close"
                     >
                       <X className="w-5 h-5" />
@@ -203,8 +199,8 @@ export default function ResearchPage() {
 
                   {/* Text Body */}
                   <div className="flex-1 min-h-0 flex flex-col overflow-y-auto overflow-x-hidden bg-[#F5F7FB] text-slate-800 p-6 md:p-8 border-t border-slate-200/80">
-                    <p className="text-base font-medium text-slate-800 leading-relaxed mb-4">{selectedArea.desc}</p>
-                    <p className="text-sm text-slate-600 leading-relaxed mb-6">{selectedArea.longDesc}</p>
+                    <p className="text-base font-medium text-slate-800 leading-relaxed mb-4">{t(`research.desc.${selectedArea.idx}`)}</p>
+                    <p className="text-sm text-slate-600 leading-relaxed mb-6">{t(`research.longDesc.${selectedArea.idx}`)}</p>
                     <div className="flex items-center gap-2 mb-3">
                       <FileText size={14} className="text-[#559DEA] shrink-0" />
                       <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Selected Works</span>

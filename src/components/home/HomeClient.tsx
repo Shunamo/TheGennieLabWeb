@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { ScrollProvider } from "@/contexts/ScrollContext";
 import Navigation from "@/components/common/Navigation";
 import HeroSection from "@/components/home/HeroSection";
+import CongratulateSection from "@/components/home/CongratulateSection";
 import WhatWeDo from "@/components/home/WhatWeDo";
 import Collaborators from "@/components/home/Collaborators";
 
@@ -35,6 +36,9 @@ export default function HomeClient() {
           <HeroSection />
         </section>
         <section className="snap-start relative z-10 bg-transparent">
+          <div className="max-w-7xl mx-auto px-6">
+            <CongratulateSection />
+          </div>
           <WhatWeDo />
           <Collaborators />
         </section>

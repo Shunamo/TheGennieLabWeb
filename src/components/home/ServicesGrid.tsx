@@ -35,7 +35,7 @@ export default function ServicesGrid() {
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-5 border border-slate-200 hover:shadow-lg transition-all group cursor-pointer"
+              className="bg-white rounded-2xl p-5 border border-slate-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 group cursor-pointer"
             >
               {/* 그래픽 영역 */}
               <div className="relative h-40 mb-5 rounded-xl overflow-hidden bg-gradient-to-br from-primary-light/20 via-primary-mid/10 to-primary/20">
@@ -56,7 +56,7 @@ export default function ServicesGrid() {
 
               {/* 화살표 버튼 */}
               <div className="flex justify-end">
-                <button className="w-9 h-9 rounded-full bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center transition-all group-hover:scale-110">
+                <button className="w-9 h-9 rounded-full bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center transition-all duration-200 group-hover:scale-110 hover:scale-110 active:scale-95">
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>

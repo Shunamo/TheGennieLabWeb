@@ -264,14 +264,7 @@ const PUBLICATIONS: Publication[] = [
 
 const YEAR_LABELS: (number | "2021")[] = [2025, 2024, 2023, 2022, "2021"];
 
-const ALL_FILTER_TAGS = Array.from(
-  new Set([...YEAR_LABELS.map(String), ...KEYWORD_TAGS]),
-).sort((a, b) => {
-  if (/^\d{4}$/.test(a) && /^\d{4}$/.test(b)) return Number(b) - Number(a);
-  if (/^\d{4}$/.test(a)) return 1;
-  if (/^\d{4}$/.test(b)) return -1;
-  return a.localeCompare(b);
-});
+const ALL_FILTER_TAGS = [...KEYWORD_TAGS].sort((a, b) => a.localeCompare(b));
 
 function TagChip({
   label,
@@ -286,14 +279,15 @@ function TagChip({
     <button
       onClick={onClick}
       className={[
-        "px-4 py-2 rounded-lg text-xs font-semibold border transition-all",
+        "px-4 py-2 rounded-lg text-xs font-semibold border transition-all duration-200 ease-out",
+        "hover:scale-105 active:scale-95",
         selected
           ? "bg-[#559DEA] text-white border-[#559DEA] shadow-[0_2px_8px_rgba(85,157,234,0.35),inset_0_1px_0_rgba(255,255,255,0.35)]"
           : "bg-white/25 backdrop-blur-sm text-slate-700 border-white/60 shadow-[0_2px_8px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.6),inset_0_-1px_0_rgba(0,0,0,0.04)] hover:bg-white/35 hover:border-[#559DEA]/50",
       ].join(" ")}
       type="button"
     >
-      {label === "2021" ? "~2021" : label}
+      {label}
     </button>
   );
 }
@@ -301,7 +295,7 @@ function TagChip({
 function PubCard({ pub }: { pub: Publication }) {
   const nonYearTags = pub.tags.filter((t) => !/^\d{4}$/.test(t));
   return (
-    <div className="rounded-2xl bg-white/20 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.7),inset_0_-1px_0_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.15),0_0_0_1px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.8)] transition-shadow">
+    <div className="rounded-2xl bg-white/20 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.7),inset_0_-1px_0_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.15),0_0_0_1px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.8)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
       <div className="p-5">
         <div className="flex items-center justify-between gap-4">
           <p className="text-xs font-semibold text-[#559DEA] uppercase tracking-wide">
@@ -318,7 +312,7 @@ function PubCard({ pub }: { pub: Publication }) {
               href={pub.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="block text-[15px] leading-relaxed font-semibold text-slate-900 hover:text-[#559DEA] transition-colors"
+              className="block text-[15px] leading-relaxed font-semibold text-slate-900 hover:text-[#559DEA] transition-colors duration-200"
             >
               {pub.title}
             </a>
@@ -363,7 +357,10 @@ export default function PublicationPage() {
     let list = PUBLICATIONS;
 
     if (selectedTags.length > 0) {
-      list = list.filter((p) => selectedTags.every((t) => p.tags.includes(t)));
+      const keywordTags = selectedTags.filter((t) => !/^\d{4}$/.test(t));
+      if (keywordTags.length > 0) {
+        list = list.filter((p) => keywordTags.every((t) => p.tags.includes(t)));
+      }
     }
 
     if (searchQuery.trim()) {
@@ -387,8 +384,6 @@ export default function PublicationPage() {
     });
     return map;
   }, [filteredPublications]);
-
-  const totalVisible = filteredPublications.length;
 
   const mainRef = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -445,26 +440,6 @@ export default function PublicationPage() {
               </h2>
               <div className="h-px flex-1 bg-gradient-to-r from-[#559DEA]/30 to-transparent" />
             </div>
-            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-              <div className="flex items-center gap-3">
-                <div className="rounded-2xl bg-white/20 backdrop-blur-xl border border-white/60 shadow-[0_4px_16px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.6)] px-4 py-2">
-                  <p className="text-xs font-semibold text-slate-500">
-                    Visible
-                  </p>
-                  <p className="text-sm font-bold text-slate-900 leading-none">
-                    {totalVisible}
-                  </p>
-                </div>
-                <div className="rounded-2xl bg-white/20 backdrop-blur-xl border border-white/60 shadow-[0_4px_16px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.6)] px-4 py-2 hidden sm:block">
-                  <p className="text-xs font-semibold text-slate-500">
-                    Latest venue
-                  </p>
-                  <p className="text-sm font-bold text-slate-900 leading-none">
-                    Nature Communications
-                  </p>
-                </div>
-              </div>
-            </div>
           </header>
 
           {/* Two-column layout */}
@@ -489,7 +464,7 @@ export default function PublicationPage() {
                       <button
                         type="button"
                         onClick={() => setSearchQuery("")}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-500 hover:text-slate-800"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-500 hover:text-slate-800 hover:scale-110 active:scale-95 transition-transform duration-200"
                       >
                         Clear
                       </button>
@@ -510,7 +485,7 @@ export default function PublicationPage() {
                           setSelectedTags([]);
                           setSearchQuery("");
                         }}
-                        className="text-xs font-semibold text-slate-500 hover:text-slate-900"
+                        className="text-xs font-semibold text-slate-500 hover:text-slate-900 hover:scale-105 active:scale-95 transition-transform duration-200"
                       >
                         Clear all
                       </button>

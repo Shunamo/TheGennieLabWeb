@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Navigation from "@/components/common/Navigation";
 import Image from "next/image";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 /** sky 톤 통일 */
 const STATUS_TAG_STYLE: Record<string, { bg: string; text: string; border: string }> = {
@@ -18,9 +19,6 @@ const STATUS_TAG_STYLE: Record<string, { bg: string; text: string; border: strin
 function getTagStyle(tag: string) {
   return STATUS_TAG_STYLE[tag] ?? { bg: "bg-sky-100", text: "text-sky-700", border: "border-sky-200" };
 }
-
-/** Team 소개글 - 수정 가능 */
-const TEAM_INTRO = `GENNIE Lab brings together researchers passionate about integrating genomics, neuroimaging, and AI to advance precision medicine. Our members collaborate on polygenic risk scores, psychiatric genetics, imaging genetics, and salutogenesis.`;
 
 interface Member {
   name: string;
@@ -276,6 +274,7 @@ const permanentMembers: PermanentMember[] = [
 ];
 
 export default function MemberPage() {
+  const { t } = useTranslation();
   const [selectedName, setSelectedName] = useState<string | null>(null);
   const mainRef = useRef<HTMLElement>(null);
 
@@ -337,19 +336,19 @@ export default function MemberPage() {
               <div className="h-px flex-1 bg-gradient-to-r from-[#559DEA]/30 to-transparent"></div>
             </div>
             <p className="text-slate-600 leading-relaxed max-w-5xl text-start">
-              {TEAM_INTRO}
+              GENNIE Lab brings together researchers passionate about integrating genomics, neuroimaging, and AI to advance precision medicine. Our members collaborate on polygenic risk scores, psychiatric genetics, imaging genetics, and salutogenesis.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {currentMembers.map((member) => {
+              {currentMembers.map((member, idx) => {
                 const isFlipped = selectedName === member.name;
                 return (
                 <div key={member.name} className="group/card">
                 <button
                   type="button"
                   onClick={() => toggleMember(member.name)}
-                  className="relative w-full aspect-[3/4] overflow-hidden"
+                  className="relative w-full aspect-[3/4] overflow-hidden transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
                   style={{ perspective: "1000px" }}
                 >
                   <div
@@ -375,17 +374,17 @@ export default function MemberPage() {
                             {(member.socials?.email || member.socials?.github || member.socials?.linkedin) && (
                               <div className="flex gap-1 shrink-0">
                                 {member.socials?.email && (
-                                  <a href={member.socials.email.startsWith("mailto:") ? member.socials.email : `mailto:${member.socials.email}`} className="p-1 bg-sky-50 rounded hover:bg-[#559DEA] hover:text-white text-slate-600 transition-colors" onClick={(e) => e.stopPropagation()} aria-label="Email">
+                                  <a href={member.socials.email.startsWith("mailto:") ? member.socials.email : `mailto:${member.socials.email}`} className="p-1 bg-sky-50 rounded hover:bg-[#559DEA] hover:text-white hover:scale-110 active:scale-95 text-slate-600 transition-all duration-200" onClick={(e) => e.stopPropagation()} aria-label="Email">
                                     <Icons.Mail />
                                   </a>
                                 )}
                                 {member.socials?.github && (
-                                  <a href={member.socials.github} target="_blank" rel="noopener noreferrer" className="p-1 bg-sky-50 rounded hover:bg-slate-800 hover:text-white text-slate-600 transition-colors" onClick={(e) => e.stopPropagation()} aria-label="GitHub">
+                                  <a href={member.socials.github} target="_blank" rel="noopener noreferrer" className="p-1 bg-sky-50 rounded hover:bg-slate-800 hover:text-white hover:scale-110 active:scale-95 text-slate-600 transition-all duration-200" onClick={(e) => e.stopPropagation()} aria-label="GitHub">
                                     <Icons.Github />
                                   </a>
                                 )}
                                 {member.socials?.linkedin && (
-                                  <a href={member.socials.linkedin} target="_blank" rel="noopener noreferrer" className="p-1 bg-sky-50 rounded hover:bg-[#0A66C2] hover:text-white text-slate-600 transition-colors" onClick={(e) => e.stopPropagation()} aria-label="LinkedIn">
+                                  <a href={member.socials.linkedin} target="_blank" rel="noopener noreferrer" className="p-1 bg-sky-50 rounded hover:bg-[#0A66C2] hover:text-white hover:scale-110 active:scale-95 text-slate-600 transition-all duration-200" onClick={(e) => e.stopPropagation()} aria-label="LinkedIn">
                                     <Icons.LinkedIn />
                                   </a>
                                 )}
@@ -405,7 +404,7 @@ export default function MemberPage() {
                         {member.bio && (
                           <div className="w-full min-w-0">
                             <p className="text-sm text-white font-bold mt-4 leading-relaxed break-words">
-                              {member.bio}
+                              {t(`member.bio.${idx}`)}
                             </p>
                           </div>
                         )}
@@ -414,7 +413,7 @@ export default function MemberPage() {
                           <div className="w-full min-w-0">
                             <p className="text-xs font-bold text-sky-300 uppercase mt-3 tracking-wider mb-2">Focus</p>
                             <p className="text-sm text-slate-200 mt-2 leading-relaxed break-words">
-                              {member.details}
+                              {t(`member.details.${idx}`)}
                             </p>
                           </div>
                         )}
@@ -470,7 +469,7 @@ export default function MemberPage() {
               </div>
             </div>
             <p className="mt-6 text-sm text-slate-500 italic">
-              * I apologize that the information of some previous members is missing. Please feel free to reach out to us if you would like to be listed on this page.
+              {t("member.footerNote")}
             </p>
           </div>
         </section>
