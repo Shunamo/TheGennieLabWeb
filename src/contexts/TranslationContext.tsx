@@ -122,11 +122,9 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
       if (lang === "ko") {
         text = text.replace(/지하철 지하철/g, "지하철");
         text = text.replace(/81 일원로 81/g, "일원로 81");
+        text = text.replace(/사원/g, "학생"); // DeepL often mistranslates "student" as 사원
         if (key === "contact.greatPersonality") {
           text = text.replace(/입니다\.?$/g, "").trim();
-        }
-        if (key === "highlight.1.title") {
-          text = text.replace(/사원/g, "학생");
         }
       }
       return text;
