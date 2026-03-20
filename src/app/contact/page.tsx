@@ -267,7 +267,7 @@ export default function ContactPage() {
                         href="https://www.google.com/maps/search/Samsung+Medical+Center+Irwon-ro+Gangnam+Seoul"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sky-600 hover:underline font-medium"
+                        className="inline-flex items-center gap-2 text-sky-600 hover:underline font-medium hover:scale-105 active:scale-95 transition-transform duration-200"
                       >
                         <ExternalLink className="w-4 h-4" />
                         {t("contact.openMaps")}

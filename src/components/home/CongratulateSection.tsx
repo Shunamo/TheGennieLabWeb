@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "@/contexts/TranslationContext";
-import { HIGHLIGHTS } from "@/data/highlights";
+import { NEWS } from "@/data/news";
 
+const NEWS_WITHOUT_LINKS = NEWS.filter((item) => !item.link);
 const VISIBLE_COUNT = 3;
 const INTERVAL_MS = 4000;
 const ITEM_HEIGHT = 52;
@@ -14,8 +15,8 @@ export default function CongratulateSection() {
   const { t } = useTranslation();
   const [index, setIndex] = useState(0);
 
-  const n = HIGHLIGHTS.length;
-  const extendedItems = [...HIGHLIGHTS, ...HIGHLIGHTS.slice(0, 3)];
+  const n = NEWS_WITHOUT_LINKS.length;
+  const extendedItems = [...NEWS_WITHOUT_LINKS, ...NEWS_WITHOUT_LINKS.slice(0, 3)];
   const maxIndex = n;
 
   const next = useCallback(() => {
@@ -39,7 +40,7 @@ export default function CongratulateSection() {
   if (n === 0) return null;
 
   const displayIndex = n <= VISIBLE_COUNT ? 0 : index;
-  const items = n > VISIBLE_COUNT ? extendedItems : HIGHLIGHTS;
+  const items = n > VISIBLE_COUNT ? extendedItems : NEWS_WITHOUT_LINKS;
 
   return (
     <div className="pt-60 md:pt-60 ">
@@ -61,23 +62,23 @@ export default function CongratulateSection() {
               : undefined
           }
         >
-          {items.map((h, i) => (
+          {items.map((item, i) => (
             <li
-              key={`${h.id}-${i}`}
+              key={`${item.id}-${i}`}
               className="rounded-xl bg-white/20 backdrop-blur-xl border border-white/50 shadow-[0_4px_20px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.6)] px-5 py-3 shrink-0"
               style={{ minHeight: ITEM_HEIGHT }}
             >
               <div className="flex items-center gap-3 flex-nowrap">
                 <span className="text-xs font-semibold text-slate-500 shrink-0 w-12">
-                  {h.date}
+                  {item.date}
                 </span>
-                {h.badge && (
+                {item.badge && (
                   <span className="shrink-0 inline-block px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider bg-amber-400/30 text-amber-800 border border-amber-400/50">
-                    {h.badge}
+                    {item.badge}
                   </span>
                 )}
                 <p className="text-sm md:text-base text-slate-800 leading-relaxed min-w-0 truncate">
-                  {t(`highlight.${h.id}.title`)}
+                  {t(`news.title.${item.id}`)}
                 </p>
               </div>
             </li>

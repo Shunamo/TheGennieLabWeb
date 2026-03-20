@@ -31,8 +31,7 @@ const config: Config = {
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite", // 느린 빛 번짐 효과
       },
       fontFamily: {
-        // 영문 폰트 설정 (Inter나 Roboto 추천)
-        sans: ["var(--font-inter)", "sans-serif"],
+        sans: ["Pretendard", "-apple-system", "BlinkMacSystemFont", "system-ui", "sans-serif"],
       },
     },
   },

@@ -19,8 +19,8 @@ export default function RootLayout({
     <html lang="ko">
       <head>
         <link
-          href="https://cdn.jsdelivr.net/gh/sun-typeface/SUITE@2/fonts/static/woff2/SUITE.css"
           rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
         />
       </head>
       <body className="antialiased">

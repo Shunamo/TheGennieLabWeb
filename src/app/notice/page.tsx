@@ -5,7 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import Navigation from "@/components/common/Navigation";
 import { ChevronRight, Pin } from "lucide-react";
-import { NOTICES, NEWS } from "@/data/notices";
+import { NOTICES } from "@/data/notices";
+import { NEWS } from "@/data/news";
 import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function NoticePage() {
@@ -73,22 +74,16 @@ export default function NoticePage() {
               <div className="h-px flex-1 bg-gradient-to-r from-slate-300/60 to-transparent" />
             </div>
             <ul className="rounded-2xl bg-white/20 backdrop-blur-2xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.08)] divide-y divide-white/40 overflow-hidden">
-              {NEWS.map((item, i) => (
-                <li key={i}>
-                  <Link
-                    href={item.link ?? "#"}
-                    className="flex items-center gap-4 px-6 py-4 hover:bg-white/20 active:scale-[0.995] transition-all duration-200 group"
-                  >
+              {NEWS.filter((item) => !item.link).map((item) => (
+                <li key={item.id}>
+                  <div className="flex items-center gap-4 px-6 py-4 group">
                     <span className="text-xs font-medium text-slate-500 shrink-0 w-24">
                       {item.date}
                     </span>
-                    <span className="text-sm font-medium text-slate-800 group-hover:text-slate-900">
-                      {t(`news.title.${i}`)}
+                    <span className="text-sm font-medium text-slate-800">
+                      {t(`news.title.${item.id}`)}
                     </span>
-                    {item.link && (
-                      <ChevronRight className="w-4 h-4 text-slate-400 ml-auto shrink-0" />
-                    )}
-                  </Link>
+                  </div>
                 </li>
               ))}
             </ul>
